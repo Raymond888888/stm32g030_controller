@@ -1,0 +1,11 @@
+*.d
+**/build
+**/devel
+**/.idea
+**/.vscode
+**/Tutorials
+*.user
+**.jdebug
+**.txt
+**.jdebug
+**.user
