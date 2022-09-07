@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "bsp.h"
+#include "hal.h"
 #include "app.h"
 /* USER CODE END Includes */
 
