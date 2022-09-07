@@ -20,12 +20,14 @@
 #include "main.h"
 #include "adc.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "bsp.h"
+#include "app.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,13 +47,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t adcsensor_depth;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -91,8 +93,10 @@ int main(void)
   MX_ADC1_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
+  MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
   BSP_Layer_Init();
+  APP_Layer_Init();
 
   /* USER CODE END 2 */
 
@@ -102,11 +106,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    adcsensor_depth=Get_ADC_Depth(&hadc1);
-    
-    char sendf[6]="fuck\n";
-    char*sendframe=sendf;
-    BSP_UART_Send_queue(0, (uint8_t *)sendframe, 6);
+    APP_Loop();
     }
   /* USER CODE END 3 */
 }
@@ -155,24 +155,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-
-uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc)
-{
-  static uint32_t depth;
-  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-  //srart ADC1
-  HAL_ADC_Start(hadc);
-  //等待ADC转换完成，超时为100ms
-  HAL_ADC_PollForConversion(hadc, 100);
-  //判断ADC是否转换成功
-  if (HAL_IS_BIT_SET(HAL_ADC_GetState(hadc), HAL_ADC_STATE_REG_EOC)) {
-    //read adc1
-    depth = HAL_ADC_GetValue(hadc);
-  }
-  return depth;
-}
-
 
 /* USER CODE END 4 */
 

@@ -9,6 +9,10 @@
 #include "bsp_uart.h"
 // #include "bsp_supervise.h"
 #include "stdint.h"
+#include "adc.h"
+#include "dma.h"
+#include "usart.h"
+#include "gpio.h"
 
 void BSP_Layer_Init();
 
