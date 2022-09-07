@@ -159,7 +159,7 @@ void SystemClock_Config(void)
 
 uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc)
 {
-  uint32_t ret;
+  static uint32_t depth;
   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
   //srart ADC1
   HAL_ADC_Start(hadc);
@@ -168,9 +168,9 @@ uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc)
   //判断ADC是否转换成功
   if (HAL_IS_BIT_SET(HAL_ADC_GetState(hadc), HAL_ADC_STATE_REG_EOC)) {
     //read adc1
-    ret = HAL_ADC_GetValue(hadc);
+    depth = HAL_ADC_GetValue(hadc);
   }
-  return ret;
+  return depth;
 }
 
 
