@@ -2,6 +2,10 @@
 #define _BSP_UART_H
 #include "stdint.h"
 #include "usart.h"
+#include "bsp_def.h"
+// #include "bsp_log.h"
+#include "circular_queue.h"
+#include "cvector.h"
 #define MAX_SEND_DATA_LEN 256
 
 typedef void (*uart_rx_callback)(uint8_t uart_index, uint8_t *data, uint32_t len);

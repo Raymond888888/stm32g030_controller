@@ -1,9 +1,4 @@
 #include "bsp_uart.h"
-
-#include "bsp_def.h"
-// #include "bsp_log.h"
-#include "circular_queue.h"
-#include "cvector.h"
 #define MAX_SEND_PACK 10
 
 typedef struct BSP_UART_Send_Pack_t {
@@ -37,7 +32,7 @@ void BSP_UART_Init() {
         // HAL_DMA_Init(uart_ports[i].port->hdmarx);
         // HAL_UART_DMAStop(uart_ports[i].port);
         //使能串口空闲中断
-        // __HAL_UART_ENABLE_IT(uart_ports[i].port, UART_IT_IDLE);  //使能串口空闲中断
+        __HAL_UART_ENABLE_IT(uart_ports[i].port, UART_IT_IDLE);  //使能串口空闲中断
         //开启DMA接收
         HAL_UART_Receive_DMA(uart_ports[i].port, uart_ports[i].rx_buff, BSP_UART_DMA_BUFF_SIZE);
     }
