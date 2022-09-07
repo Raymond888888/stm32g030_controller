@@ -76,6 +76,7 @@ Core/BSP/lib/bsp_delay.c \
 Core/BSP/lib/bsp_log.c \
 Core/BSP/lib/circular_queue.c \
 Core/BSP/lib/cvector.c \
+Core/HAL/hal.c \
 Core/APP/app.c \
 Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_printf.c \
 Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c
@@ -153,6 +154,9 @@ C_INCLUDES += \
 -ICore/BSP/lib \
 -ICore/BSP \
 -ICore/BSP/lib \
+-ICore/HAL \
+-ICore/HAL/driver/f4_communicate \
+-ICore/HAL/driver/pc_communicate \
 -ICore/APP \
 -IMiddlewares/Third_Party/SEGGER/RTT/ \
 -IMiddlewares/Third_Party/SEGGER/Config

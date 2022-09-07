@@ -2,6 +2,7 @@
 
 uint32_t adcsensor_depth;
 uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc);
+void Senddepth_test();
 
 void APP_Layer_Init() {
     // create
@@ -10,16 +11,7 @@ void APP_Layer_Init() {
 void APP_Loop() {
     // update
     adcsensor_depth = Get_ADC_Depth(&hadc1);
-    char *strdepth = (char *)malloc(24*sizeof(char));
-    Float2Str((char *)strdepth, adcsensor_depth);
-    char sendf[6] = "fuck\n";
-    uint8_t *sendp = (uint8_t*)malloc(12*sizeof(uint8_t));
-    memcpy(sendp,strdepth,6*sizeof(char));
-    memcpy(sendp+6,sendf,6*sizeof(char));
-    BSP_UART_Send_queue(0, (uint8_t *)sendp, 12);
-    bsp_delay_us(10);
-    free(strdepth);
-    free(sendp);
+    // Senddepth_test();
 }
 
 // 打印输出等到ozone的窗口 用于测试项目
@@ -42,3 +34,26 @@ uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc) {
     }
     return depth;
 }
+
+void Senddepth_test(){
+    char *strdepth = (char *)malloc(24*sizeof(char));
+    Float2Str((char *)strdepth, adcsensor_depth);
+    char sendf[6] = "fuck\n";
+    uint8_t *sendp = (uint8_t*)malloc(12*sizeof(uint8_t));
+    memcpy(sendp,strdepth,6*sizeof(char));
+    memcpy(sendp+6,sendf,6*sizeof(char));
+    BSP_UART_Send_queue(0, (uint8_t *)sendp, 12);
+    bsp_delay_us(10);
+    free(strdepth);
+    free(sendp); 
+}
+
+
+
+// s
+// t
+// high_angle
+// low_angle
+// distance
+// d
+// e

@@ -3,6 +3,7 @@
 
 // #include "bsp_log.h"
 #include "bsp.h"
+#include "hal.h"
 
 #define MAIN_BOARD
 

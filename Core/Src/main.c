@@ -96,6 +96,7 @@ int main(void)
   MX_TIM17_Init();
   /* USER CODE BEGIN 2 */
   BSP_Layer_Init();
+  HAL_Layer_Init();
   APP_Layer_Init();
 
   /* USER CODE END 2 */
