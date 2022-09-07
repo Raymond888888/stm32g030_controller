@@ -71,8 +71,8 @@ Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart_ex.c
 C_SOURCES += \
 Core/BSP/bsp.c \
 Core/BSP/interface/bsp_uart.c \
-Core/Lib/circular_queue.c \
-Core/Lib/cvector.c
+Core/BSP/lib/circular_queue.c \
+Core/BSP/lib/cvector.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -142,7 +142,7 @@ C_INCLUDES += \
 -ICore/BSP/interface \
 -ICore/BSP/lib \
 -ICore/BSP \
--ICore/Lib
+-ICore/BSP/lib
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
