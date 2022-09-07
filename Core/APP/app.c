@@ -3,8 +3,6 @@
 uint32_t adcsensor_depth;
 uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc);
 
-void Float2Str(char *str, float va);
-
 void APP_Layer_Init() {
     // create
 }
@@ -43,23 +41,4 @@ uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc) {
         depth = HAL_ADC_GetValue(hadc);
     }
     return depth;
-}
-
-void Float2Str(char *str, float va) {
-    uint8_t flag = va < 0;
-    uint32_t head = (int)fabs(va);
-    int point = (int)((va - head) * 1000);
-    head = abs(head);
-    point = abs(point);
-    if (point == 0) {
-        if (flag)
-            sprintf(str, "-%lu\n", head);
-        else
-            sprintf(str, " %lu\n", head);
-    } else {
-        if (flag)
-            sprintf(str, "-%lu.%d\n", head, point);
-        else
-            sprintf(str, " %lu.%d\n", head, point);
-    }
 }

@@ -72,16 +72,22 @@ Core/Src/tim.c
 C_SOURCES += \
 Core/BSP/bsp.c \
 Core/BSP/interface/bsp_uart.c \
-Core/BSP/interface/bsp_delay.c \
+Core/BSP/lib/bsp_delay.c \
+Core/BSP/lib/bsp_log.c \
 Core/BSP/lib/circular_queue.c \
 Core/BSP/lib/cvector.c \
-Core/APP/app.c
+Core/APP/app.c \
+Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_printf.c \
+Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT.c
 
 # ASM sources
 ASM_SOURCES =  \
 startup_stm32g030xx.s
 
 
+#User ASM sources
+ASM_SOURCES += \
+Middlewares/Third_Party/SEGGER/RTT/SEGGER_RTT_ASM_ARMv7M.s
 #######################################
 # binaries
 #######################################
@@ -127,7 +133,8 @@ C_DEFS =  \
 -DSTM32G030xx
 
 # AS includes
-AS_INCLUDES = 
+AS_INCLUDES =  \
+-ICore\Inc
 
 # C includes
 C_INCLUDES =  \
@@ -146,7 +153,9 @@ C_INCLUDES += \
 -ICore/BSP/lib \
 -ICore/BSP \
 -ICore/BSP/lib \
--ICore/APP
+-ICore/APP \
+-IMiddlewares/Third_Party/SEGGER/RTT/ \
+-IMiddlewares/Third_Party/SEGGER/Config
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
