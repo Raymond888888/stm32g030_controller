@@ -67,6 +67,18 @@ Core/Src/system_stm32g0xx.c \
 Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart.c \
 Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart_ex.c
 
+# User C sources
+C_SOURCES += \
+Core/BSP/bsp.c \
+Core/BSP/interface/bsp_uart.c \
+Core/Lib/circular_queue.c \
+Core/Lib/cvector.c
+# Core/BSP/lib/bsp_delay.c \
+# Core/BSP/lib/bsp_log.c \
+# Core/BSP/lib/bsp_random.c \
+# Core/BSP/lib/bsp_softreset.c \
+# Core/BSP/bsp_supervise.c 
+
 # ASM sources
 ASM_SOURCES =  \
 startup_stm32g030xx.s
@@ -130,6 +142,12 @@ C_INCLUDES =  \
 -IMiddlewares/Third_Party/ARM_CMSIS/CMSIS/DSP/Include/ \
 -IMiddlewares/Third_Party/ARM_CMSIS/CMSIS/DSP/Include
 
+# User C includes
+C_INCLUDES += \
+-ICore/BSP/interface \
+-ICore/BSP/lib \
+-ICore/BSP \
+-ICore/Lib
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections

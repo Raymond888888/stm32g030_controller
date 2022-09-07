@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "bsp_uart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,13 +45,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t adc_voltage;
+uint32_t adcsensor_depth;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -101,16 +101,26 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-        //srart ADC1
-        HAL_ADC_Start(&hadc1);
-        //等待ADC转换完成，超时为100ms
-        HAL_ADC_PollForConversion(&hadc1, 100);
-        //判断ADC是否转换成功
-        if (HAL_IS_BIT_SET(HAL_ADC_GetState(&hadc1), HAL_ADC_STATE_REG_EOC)) {
-            //read adc1
-            adc_voltage = HAL_ADC_GetValue(&hadc1);
-        }
+    adcsensor_depth=Get_ADC_Depth(&hadc1);
+    
+    char sendf[6]="fuck\n";
+    char*sendframe=sendf;
+    // BSP_UART_Send_queue(1, (uint8_t *)sendframe, 6);
+    // void BSP_UART_Send_queue(uint8_t uart_index, uint8_t *data, uint16_t len) {
+    // if (len > MAX_SEND_DATA_LEN) return;
+    // uart_ports[uart_index].queue_send_enable = 1;
+    // if (uart_ports[uart_index].send_packs->cq_len == MAX_SEND_PACK) return;
+    // static BSP_UART_Send_Pack temp_pack;
+    // temp_pack.len = len;
+    // memcpy(temp_pack.buffer, data, len);
+    // circular_queue_push(uart_ports[uart_index].send_packs, &temp_pack);
+    // //第一次发送
+    // if (uart_ports[uart_index].send_packs->cq_len == 1) {
+    //     BSP_UART_Send_Pack *now_pack = circular_queue_front(uart_ports[uart_index].send_packs);
+    //     // printf_log("send len:%d\n",now_pack->len);
+    //     HAL_UART_Transmit_IT(uart_ports[uart_index].port, now_pack->buffer, now_pack->len);
+    // }
+  // }
     }
   /* USER CODE END 3 */
 }
@@ -159,6 +169,24 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+
+uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc)
+{
+  uint32_t ret;
+  HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+  //srart ADC1
+  HAL_ADC_Start(hadc);
+  //等待ADC转换完成，超时为100ms
+  HAL_ADC_PollForConversion(hadc, 100);
+  //判断ADC是否转换成功
+  if (HAL_IS_BIT_SET(HAL_ADC_GetState(hadc), HAL_ADC_STATE_REG_EOC)) {
+    //read adc1
+    ret = HAL_ADC_GetValue(hadc);
+  }
+  return ret;
+}
+
 
 /* USER CODE END 4 */
 
