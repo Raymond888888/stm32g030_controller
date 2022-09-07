@@ -31,13 +31,13 @@ void BSP_UART_Init() {
         uart_ports[i].call_backs = cvector_create(sizeof(uart_rx_callback));
         uart_ports[i].send_packs = create_circular_queue(sizeof(BSP_UART_Send_Pack), MAX_SEND_PACK);
         // HAL库的BUG处理，对于DMA需要先DeInit再Init，不然GG
-        HAL_DMA_DeInit(uart_ports[i].port->hdmatx);
-        HAL_DMA_DeInit(uart_ports[i].port->hdmarx);
-        HAL_DMA_Init(uart_ports[i].port->hdmatx);
-        HAL_DMA_Init(uart_ports[i].port->hdmarx);
-        HAL_UART_DMAStop(uart_ports[i].port);
+        // HAL_DMA_DeInit(uart_ports[i].port->hdmatx);
+        // HAL_DMA_DeInit(uart_ports[i].port->hdmarx);
+        // HAL_DMA_Init(uart_ports[i].port->hdmatx);
+        // HAL_DMA_Init(uart_ports[i].port->hdmarx);
+        // HAL_UART_DMAStop(uart_ports[i].port);
         //使能串口空闲中断
-        __HAL_UART_ENABLE_IT(uart_ports[i].port, UART_IT_IDLE);  //使能串口空闲中断
+        // __HAL_UART_ENABLE_IT(uart_ports[i].port, UART_IT_IDLE);  //使能串口空闲中断
         //开启DMA接收
         HAL_UART_Receive_DMA(uart_ports[i].port, uart_ports[i].rx_buff, BSP_UART_DMA_BUFF_SIZE);
     }

@@ -92,6 +92,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  BSP_UART_Init();
 
   /* USER CODE END 2 */
 
@@ -103,10 +104,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
     adcsensor_depth=Get_ADC_Depth(&hadc1);
     
-    // char sendf[6]="fuck\n";
-    char sendf="f";
+    char sendf[6]="fuck\n";
     char*sendframe=sendf;
-    BSP_UART_Send_queue(0, (uint8_t *)sendframe, 1);
+    BSP_UART_Send_queue(0, (uint8_t *)sendframe, 6);
     }
   /* USER CODE END 3 */
 }
