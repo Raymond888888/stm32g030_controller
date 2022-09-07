@@ -73,11 +73,6 @@ Core/BSP/bsp.c \
 Core/BSP/interface/bsp_uart.c \
 Core/Lib/circular_queue.c \
 Core/Lib/cvector.c
-# Core/BSP/lib/bsp_delay.c \
-# Core/BSP/lib/bsp_log.c \
-# Core/BSP/lib/bsp_random.c \
-# Core/BSP/lib/bsp_softreset.c \
-# Core/BSP/bsp_supervise.c 
 
 # ASM sources
 ASM_SOURCES =  \

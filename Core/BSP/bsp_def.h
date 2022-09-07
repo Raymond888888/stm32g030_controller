@@ -1,12 +1,3 @@
-/**
- * @file           : bsp_def.h
- * @brief          : BSP层所有配置的宏定义
- * @Author         : 李鸣航
- * @Date           : 2022-05-01 20:45
- * @LastEditTime   : 2022-05-15 17:18
- * @Note           : 请仔细阅读注释，严禁私自更改，随意更改，否则后果自负
- * @Copyright(c)   : 哈尔滨工业大学（深圳）南工骁鹰机器人队版权所有 Critical HIT copyrighted
- */
 #ifndef _BSP_DEF_H_
 #define _BSP_DEF_H_
 
@@ -209,13 +200,13 @@
  * @brief      :uart_ports[0]的宏定义配置，为定时器端口
  * @attention  :uart数目一定要和DEVICE_UART_CNT一致
  */
-#define UART_0_PORT &huart3
+#define UART_0_PORT &huart1
 
 /**
  * @brief      :uart_ports[1]的宏定义配置，为定时器端口
  * @attention  :uart数目一定要和DEVICE_UART_CNT一致
  */
-#define UART_1_PORT &huart6
+#define UART_1_PORT &huart2
 
 /**
  * @brief      :APP层和HAL层会调用的UART口的宏定义

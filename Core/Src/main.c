@@ -103,24 +103,10 @@ int main(void)
     /* USER CODE BEGIN 3 */
     adcsensor_depth=Get_ADC_Depth(&hadc1);
     
-    char sendf[6]="fuck\n";
+    // char sendf[6]="fuck\n";
+    char sendf="f";
     char*sendframe=sendf;
-    // BSP_UART_Send_queue(1, (uint8_t *)sendframe, 6);
-    // void BSP_UART_Send_queue(uint8_t uart_index, uint8_t *data, uint16_t len) {
-    // if (len > MAX_SEND_DATA_LEN) return;
-    // uart_ports[uart_index].queue_send_enable = 1;
-    // if (uart_ports[uart_index].send_packs->cq_len == MAX_SEND_PACK) return;
-    // static BSP_UART_Send_Pack temp_pack;
-    // temp_pack.len = len;
-    // memcpy(temp_pack.buffer, data, len);
-    // circular_queue_push(uart_ports[uart_index].send_packs, &temp_pack);
-    // //第一次发送
-    // if (uart_ports[uart_index].send_packs->cq_len == 1) {
-    //     BSP_UART_Send_Pack *now_pack = circular_queue_front(uart_ports[uart_index].send_packs);
-    //     // printf_log("send len:%d\n",now_pack->len);
-    //     HAL_UART_Transmit_IT(uart_ports[uart_index].port, now_pack->buffer, now_pack->len);
-    // }
-  // }
+    BSP_UART_Send_queue(0, (uint8_t *)sendframe, 1);
     }
   /* USER CODE END 3 */
 }
