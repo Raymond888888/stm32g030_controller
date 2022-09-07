@@ -12,14 +12,16 @@ void APP_Layer_Init() {
 void APP_Loop() {
     // update
     adcsensor_depth = Get_ADC_Depth(&hadc1);
-    char *strdepth = (char *)malloc(5);
-    Float2Str((char *)strdepth, (float)adcsensor_depth);
+    char *strdepth = (char *)malloc(24*sizeof(char));
+    Float2Str((char *)strdepth, adcsensor_depth);
     char sendf[6] = "fuck\n";
-    char *sendframe = sendf;
-    BSP_UART_Send_queue(0, (uint8_t *)sendframe, 6);
-    // bsp_delay
-    BSP_UART_Send_queue(0, (uint8_t *)strdepth, 5);
+    uint8_t *sendp = (uint8_t*)malloc(12*sizeof(uint8_t));
+    memcpy(sendp,strdepth,6*sizeof(char));
+    memcpy(sendp+6,sendf,6*sizeof(char));
+    BSP_UART_Send_queue(0, (uint8_t *)sendp, 12);
+    bsp_delay_us(10);
     free(strdepth);
+    free(sendp);
 }
 
 // 打印输出等到ozone的窗口 用于测试项目
@@ -44,20 +46,20 @@ uint32_t Get_ADC_Depth(ADC_HandleTypeDef *hadc) {
 }
 
 void Float2Str(char *str, float va) {
-    int flag = va < 0;
-    int64_t head = (int)va;
+    uint8_t flag = va < 0;
+    uint32_t head = (int)fabs(va);
     int point = (int)((va - head) * 1000);
     head = abs(head);
     point = abs(point);
     if (point == 0) {
         if (flag)
-            sprintf(str, "-%ld \n", head);
+            sprintf(str, "-%lu\n", head);
         else
-            sprintf(str, "%ld \n", head);
+            sprintf(str, " %lu\n", head);
     } else {
         if (flag)
-            sprintf(str, "-%ld.%d \n", head, point);
+            sprintf(str, "-%lu.%d\n", head, point);
         else
-            sprintf(str, "%ld.%d \n", head, point);
+            sprintf(str, " %lu.%d\n", head, point);
     }
 }
